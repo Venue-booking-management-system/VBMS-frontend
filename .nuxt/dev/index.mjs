@@ -636,7 +636,8 @@ const _inlineRuntimeConfig = {
       },
       "/dashboard": {
         "middleware": [
-          "auth"
+          "auth",
+          "staff"
         ]
       },
       "/__nuxt_content/**": {

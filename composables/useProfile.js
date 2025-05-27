@@ -1,36 +1,35 @@
-// composables/useProfile.js
 import { computed } from 'vue'
 import { useAuthStore } from '~/stores/auth'
 
 export const useProfile = () => {
     const authStore = useAuthStore()
 
-    // Computed properties
     const profile = computed(() => authStore.user)
     const isStudent = computed(() => authStore.isStudent)
     const isStaff = computed(() => authStore.isStaff)
     const studentType = computed(() => authStore.studentType)
     const email = computed(() => authStore.user?.email || '')
-    const profilePicture = computed(() => authStore.user?.picture || '')
+    const profilePicture = computed(() => authStore.user?.profile_picture || '')
 
-    // Student-specific data
     const studentProfile = computed(() => {
         if (!isStudent.value) return null
         return {
             studentId: authStore.user.student_id,
-            // Add other student-specific fields (e.g., grade_level) when known
+            major: authStore.user.major,
+            organization: authStore.user.organization,
+            year: authStore.user.year,
         }
     })
 
-    // Staff-specific data
     const staffProfile = computed(() => {
         if (!isStaff.value) return null
         return {
-            // Add staff-specific fields (e.g., employee_id, department) when known
+            staffId: authStore.user.staff_id,
+            department: authStore.user.department,
+            position: authStore.user.position,
         }
     })
 
-    // Update profile
     const updateProfile = async (profileData) => {
         return await authStore.updateProfile(profileData)
     }

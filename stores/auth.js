@@ -1,23 +1,21 @@
 import { defineStore } from 'pinia'
 import { useAxios } from '~/services/useAxios.js'
+import { useProfileStore } from './profile.js'
 
 const API_ROUTES = {
     REGISTER: '/api/auth/register/',
     LOGIN: '/api/token/',
     REFRESH: '/api/token/refresh/',
-    PROFILE: '/api/me/profile/',
     LOGOUT: '/api/auth/logout/'
 }
 
 const STORAGE_KEYS = {
-    USER: 'user',
     TOKEN: 'token',
     REFRESH_TOKEN: 'refreshToken'
 }
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
-        user: null,
         token: null,
         refreshToken: null,
         refreshTimeout: null
@@ -25,26 +23,22 @@ export const useAuthStore = defineStore('auth', {
 
     getters: {
         isAuthenticated: (state) => !!state.token,
-        userType: (state) => state.user?.user_type || null,
-        isStudent: (state) => state.user?.user_type === 'student',
-        isStaff: (state) => state.user?.user_type === 'staff',
     },
 
     actions: {
         loadFromStorage() {
-            const user = this.getFromStorage(STORAGE_KEYS.USER, true)
-            this.user = user ? { ...user } : null
-            this.user = this.getFromStorage(STORAGE_KEYS.USER, true)
             this.token = this.getFromStorage(STORAGE_KEYS.TOKEN)
             this.refreshToken = this.getFromStorage(STORAGE_KEYS.REFRESH_TOKEN)
         },
 
         getFromStorage(key, parseJson = false) {
+            if (typeof localStorage === 'undefined') return null
             const value = localStorage.getItem(key)
             return parseJson ? JSON.parse(value) : value
         },
 
         saveToStorage(key, value) {
+            if (typeof localStorage === 'undefined') return
             const storableValue = typeof value === 'object' ? JSON.stringify(value) : value
             localStorage.setItem(key, storableValue)
         },
@@ -71,7 +65,11 @@ export const useAuthStore = defineStore('auth', {
                 const api = useAxios()
                 const response = await api.post(API_ROUTES.LOGIN, credentials)
                 this.handleTokenResponse(response.data)
-                await this.fetchProfile()
+
+                // Fetch profile after successful login
+                const profileStore = useProfileStore()
+                await profileStore.fetchProfile()
+
                 return response.data
             } catch (error) {
                 this.clearAuth()
@@ -110,52 +108,42 @@ export const useAuthStore = defineStore('auth', {
             this.refreshTimeout = setTimeout(() => this.refreshTokenRequest(), 19 * 60 * 1000)
         },
 
-        async fetchProfile() {
-            try {
-                const api = useAxios()
-                const response = await api.get(API_ROUTES.PROFILE)
-                    for (const key in response.data) {
-                        if (key === 'profile') {
-                            this.user = {...this.user, ...response.data[key]}
-                        }
-                        this.user[key] = response.data[key]
-                    }
-                    this.saveToStorage(STORAGE_KEYS.USER, this.user)
-                    return this.user
-            } catch (error) {
-                return this.handleError(error)
-            }
-        },
-
-        async updateProfile(profileData) {
-            try {
-                const api = useAxios()
-                const response = await api.put(API_ROUTES.PROFILE, profileData)
-                this.user = { ...this.user, ...response.data }
-                this.saveToStorage(STORAGE_KEYS.USER, this.user)
-                return this.user
-            } catch (error) {
-                return this.handleError(error)
-            }
-        },
-
+        // Manual logout (makes API call) - called by user actions
         async logout() {
             try {
-                const api = useAxios()
-                await api.post(API_ROUTES.LOGOUT)
+                // Only make API call if we have a token
+                if (this.token) {
+                    const api = useAxios()
+                    await api.post(API_ROUTES.LOGOUT)
+                }
+            } catch (error) {
+                // Don't throw on logout API errors - just log them
+                console.warn('Logout API call failed:', error.message)
             } finally {
+                // Always clear state regardless of API call success
                 this.clearAuth()
-                navigateTo('/login')
+                const profileStore = useProfileStore()
+                profileStore.clearProfile()
+                await navigateTo('/login')
             }
+        },
+
+        // Clear auth state without API calls - called by interceptor
+        clearAuthState() {
+            this.clearAuth()
+            const profileStore = useProfileStore()
+            profileStore.clearProfile()
         },
 
         clearAuth() {
-            this.user = null
             this.token = null
             this.refreshToken = null
-            Object.values(STORAGE_KEYS).forEach(key => localStorage.removeItem(key))
+            if (typeof localStorage !== 'undefined') {
+                Object.values(STORAGE_KEYS).forEach(key => localStorage.removeItem(key))
+            }
             if (this.refreshTimeout) {
                 clearTimeout(this.refreshTimeout)
+                this.refreshTimeout = null
             }
         },
 
@@ -164,16 +152,27 @@ export const useAuthStore = defineStore('auth', {
             this.loadFromStorage()
             if (this.token) {
                 this.scheduleTokenRefresh()
-                if (!this.user) this.fetchProfile()
+                // Initialize profile if we have a valid token
+                const profileStore = useProfileStore()
+                if (!profileStore.isProfileLoaded) {
+                    profileStore.fetchProfile().catch(() => {
+                        // If profile fetch fails, clear auth
+                        this.clearAuth()
+                    })
+                }
             }
         },
+
         async checkAuth() {
             if (this.token) {
                 try {
-                    await this.fetchProfile()
+                    const profileStore = useProfileStore()
+                    await profileStore.fetchProfile()
                     return true
                 } catch (error) {
                     this.clearAuth()
+                    const profileStore = useProfileStore()
+                    profileStore.clearProfile()
                     return false
                 }
             }

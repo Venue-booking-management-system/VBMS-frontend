@@ -184,10 +184,7 @@ async function handleRegister() {
             <button
                 type="submit"
                 class="btn"
-                :disabled="authStore.isLoading"
-            >
-              {{ authStore.isLoading ? 'Registering...' : 'Register' }}
-            </button>
+            >Register</button>
           </div>
         </form>
 

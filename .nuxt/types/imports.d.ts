@@ -107,6 +107,7 @@ declare global {
   const useAsyncData: typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['useAsyncData']
   const useAttrs: typeof import('vue')['useAttrs']
   const useAuthStore: typeof import('../../stores/auth')['useAuthStore']
+  const useBookings: typeof import('../../composables/useBookings')['useBookings']
   const useCookie: typeof import('../../node_modules/nuxt/dist/app/composables/cookie')['useCookie']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
@@ -127,6 +128,7 @@ declare global {
   const usePinia: typeof import('../../node_modules/@pinia/nuxt/dist/runtime/composables')['usePinia']
   const usePreviewMode: typeof import('../../node_modules/nuxt/dist/app/composables/preview')['usePreviewMode']
   const useProfile: typeof import('../../composables/useProfile')['useProfile']
+  const useProfileStore: typeof import('../../stores/profile')['useProfileStore']
   const useRequestEvent: typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestEvent']
   const useRequestFetch: typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestFetch']
   const useRequestHeader: typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestHeader']
@@ -300,6 +302,7 @@ declare module 'vue' {
     readonly useAsyncData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['useAsyncData']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
     readonly useAuthStore: UnwrapRef<typeof import('../../stores/auth')['useAuthStore']>
+    readonly useBookings: UnwrapRef<typeof import('../../composables/useBookings')['useBookings']>
     readonly useCookie: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/cookie')['useCookie']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
@@ -320,6 +323,7 @@ declare module 'vue' {
     readonly usePinia: UnwrapRef<typeof import('../../node_modules/@pinia/nuxt/dist/runtime/composables')['usePinia']>
     readonly usePreviewMode: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/preview')['usePreviewMode']>
     readonly useProfile: UnwrapRef<typeof import('../../composables/useProfile')['useProfile']>
+    readonly useProfileStore: UnwrapRef<typeof import('../../stores/profile')['useProfileStore']>
     readonly useRequestEvent: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestEvent']>
     readonly useRequestFetch: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestFetch']>
     readonly useRequestHeader: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestHeader']>

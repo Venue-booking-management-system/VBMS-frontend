@@ -24,7 +24,7 @@ const logout = ref(async () => {
         <li><router-link to="/venues">Venues</router-link></li>
         <li><router-link to="/bookings">My Bookings</router-link></li>
         <li><router-link to="/profile">Profile</router-link></li>
-        <li><button @click.prevent="logout">Logout</button></li>
+        <li><button class="logout-button" @click.prevent="logout">Logout</button></li>
       </ul>
     </div>
   </header>
@@ -59,4 +59,25 @@ const logout = ref(async () => {
 .nav-links a.router-link-active {
   color: vars.$primary;
 }
+
+.logout-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
+}
+
+.logout-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.4);
+}
+
 </style>
