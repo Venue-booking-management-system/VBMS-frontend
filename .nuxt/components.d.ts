@@ -12,7 +12,8 @@ type HydrationStrategies = {
 }
 type LazyComponent<T> = (T & DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }>)
 interface _GlobalComponents {
-      'HeaderComponent': typeof import("../components/HeaderComponent.vue")['default']
+      'BookingWizard': typeof import("../components/BookingWizard.vue")['default']
+    'HeaderComponent': typeof import("../components/HeaderComponent.vue")['default']
     'RecentBooking': typeof import("../components/RecentBooking.vue")['default']
     'ProseA': typeof import("../node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseA.vue")['default']
     'ProseBlockquote': typeof import("../node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseBlockquote.vue")['default']
@@ -68,7 +69,8 @@ interface _GlobalComponents {
     'Body': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
     'NuxtIsland': typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
     'NuxtRouteAnnouncer': IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
-      'LazyHeaderComponent': LazyComponent<typeof import("../components/HeaderComponent.vue")['default']>
+      'LazyBookingWizard': LazyComponent<typeof import("../components/BookingWizard.vue")['default']>
+    'LazyHeaderComponent': LazyComponent<typeof import("../components/HeaderComponent.vue")['default']>
     'LazyRecentBooking': LazyComponent<typeof import("../components/RecentBooking.vue")['default']>
     'LazyProseA': LazyComponent<typeof import("../node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseA.vue")['default']>
     'LazyProseBlockquote': LazyComponent<typeof import("../node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseBlockquote.vue")['default']>
@@ -130,6 +132,7 @@ declare module 'vue' {
   export interface GlobalComponents extends _GlobalComponents { }
 }
 
+export const BookingWizard: typeof import("../components/BookingWizard.vue")['default']
 export const HeaderComponent: typeof import("../components/HeaderComponent.vue")['default']
 export const RecentBooking: typeof import("../components/RecentBooking.vue")['default']
 export const ProseA: typeof import("../node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseA.vue")['default']
@@ -186,6 +189,7 @@ export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
 export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const NuxtRouteAnnouncer: IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
+export const LazyBookingWizard: LazyComponent<typeof import("../components/BookingWizard.vue")['default']>
 export const LazyHeaderComponent: LazyComponent<typeof import("../components/HeaderComponent.vue")['default']>
 export const LazyRecentBooking: LazyComponent<typeof import("../components/RecentBooking.vue")['default']>
 export const LazyProseA: LazyComponent<typeof import("../node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseA.vue")['default']>

@@ -1,3 +1,4 @@
+export const BookingWizard = () => import('./../../components/BookingWizard.vue')
 export const HeaderComponent = () => import('./../../components/HeaderComponent.vue')
 export const RecentBooking = () => import('./../../components/RecentBooking.vue')
 export const NuxtWelcome = () => import('./../../node_modules/nuxt/dist/app/components/welcome.vue')
@@ -29,4 +30,4 @@ export const Html = () => import('./../../node_modules/nuxt/dist/head/runtime/co
 export const Body = () => import('./../../node_modules/nuxt/dist/head/runtime/components')
 export const NuxtIsland = () => import('./../../node_modules/nuxt/dist/app/components/nuxt-island')
 export const globalComponents: string[] = ["ProseA","ProseBlockquote","ProseCode","ProseEm","ProseH1","ProseH2","ProseH3","ProseH4","ProseH5","ProseH6","ProseHr","ProseImg","ProseLi","ProseOl","ProseP","ProsePre","ProseScript","ProseStrong","ProseTable","ProseTbody","ProseTd","ProseTh","ProseThead","ProseTr","ProseUl"]
-export const localComponents: string[] = ["HeaderComponent","RecentBooking","NuxtWelcome","NuxtLayout","NuxtErrorBoundary","ClientOnly","DevOnly","ServerPlaceholder","NuxtLink","NuxtLoadingIndicator","NuxtTime","NuxtRouteAnnouncer","NuxtImg","NuxtPicture","ContentRenderer","MDC","MDCCached","MDCRenderer","MDCSlot","NuxtPage","NoScript","Link","Base","Title","Meta","Style","Head","Html","Body","NuxtIsland"]
+export const localComponents: string[] = ["BookingWizard","HeaderComponent","RecentBooking","NuxtWelcome","NuxtLayout","NuxtErrorBoundary","ClientOnly","DevOnly","ServerPlaceholder","NuxtLink","NuxtLoadingIndicator","NuxtTime","NuxtRouteAnnouncer","NuxtImg","NuxtPicture","ContentRenderer","MDC","MDCCached","MDCRenderer","MDCSlot","NuxtPage","NoScript","Link","Base","Title","Meta","Style","Head","Html","Body","NuxtIsland"]

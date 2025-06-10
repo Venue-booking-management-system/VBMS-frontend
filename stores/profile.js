@@ -24,7 +24,7 @@ export const useProfileStore = defineStore('profile', {
         hasError: (state) => !!state.error,
 
         isStudent: (state) => state.user?.user_type === 'student',
-        isStaff: (state) => state.user?.user_type === 'staff',
+        isStaff: (state) => state.user?.user_type === 'staff' || state.user?.is_staff,
 
         userEmail: (state) => state.user?.email || '',
         userId: (state) => state.user?.id || null,

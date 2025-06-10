@@ -26,6 +26,10 @@ export default {
       error: null
     })
 
+    definePageMeta({
+      middleware: ['auth'],
+    })
+
     const formData = reactive({
       first_name: '',
       last_name: '',

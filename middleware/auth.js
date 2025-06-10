@@ -1,11 +1,17 @@
-// middleware/auth.js
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware(async (to, from) => {
   if (process.client) {
     const authStore = useAuthStore()
+    const profileStore = useProfileStore()
+
+    // Initialize auth store if not already done
+    authStore.initialize()
 
     // Redirect unauthenticated users to login for protected routes
-    if (!authStore.isAuthenticated && to.meta.requiresAuth) {
-      return navigateTo('/login')
+    if (!authStore.isAuthenticated && to.meta.auth) {
+      return navigateTo({
+        path: '/login',
+        query: { redirect: to.fullPath },
+      })
     }
 
     // Redirect authenticated users away from login page
@@ -13,12 +19,14 @@ export default defineNuxtRouteMiddleware((to, from) => {
       return navigateTo('/')
     }
 
-    // Restrict routes based on user type
-    if (to.meta.requiresStudent && !authStore.isStudent) {
-      return navigateTo('/unauthorized')
-    }
-    if (to.meta.requiresStaff && !authStore.isStaff) {
-      return navigateTo('/unauthorized')
+    // Fetch profile if authenticated but not loaded
+    if (authStore.isAuthenticated && !profileStore.isProfileLoaded) {
+      try {
+        await profileStore.fetchProfile()
+      } catch {
+        authStore.clearAuth()
+        return navigateTo('/login')
+      }
     }
   }
 })
