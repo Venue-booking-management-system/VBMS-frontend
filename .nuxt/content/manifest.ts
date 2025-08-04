@@ -15,15 +15,15 @@ export default {
     "type": "page",
     "fields": {
       "id": "string",
-      "stem": "string",
+      "title": "string",
+      "body": "json",
+      "description": "string",
       "extension": "string",
       "meta": "json",
+      "navigation": "json",
       "path": "string",
-      "title": "string",
-      "description": "string",
       "seo": "json",
-      "body": "json",
-      "navigation": "json"
+      "stem": "string"
     }
   },
   "info": {

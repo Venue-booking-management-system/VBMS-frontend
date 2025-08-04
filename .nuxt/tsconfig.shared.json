@@ -97,9 +97,6 @@
       "#app-manifest": [
         "./manifest/meta/dev"
       ],
-      "#components": [
-        "./components"
-      ],
       "#build": [
         "."
       ],
@@ -121,14 +118,6 @@
     "noImplicitOverride": true,
     "module": "preserve",
     "noEmit": true,
-    "lib": [
-      "ESNext",
-      "dom",
-      "dom.iterable",
-      "webworker"
-    ],
-    "jsx": "preserve",
-    "jsxImportSource": "vue",
     "types": [],
     "moduleResolution": "Bundler",
     "useDefineForClassFields": true,
@@ -136,43 +125,12 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "./nuxt.d.ts",
-    "../**/*",
-    "../modules/*/runtime/**/*",
-    "../layers/*/app/**/*",
-    "../layers/*/modules/*/runtime/**/*",
-    "../shared/**/*.d.ts",
-    "../modules/*/shared/**/*.d.ts",
-    "../layers/*/shared/**/*.d.ts",
-    "../*.d.ts",
-    "../layers/*/*.d.ts",
-    "./nuxt.node.d.ts",
-    "../modules/*.*",
-    "../nuxt.config.*",
-    "../.config/nuxt.*",
-    "../layers/*/nuxt.config.*",
-    "../layers/*/.config/nuxt.*",
-    "../layers/*/modules/**/*",
+    "./nuxt.shared.d.ts",
     "../shared/**/*",
     "../modules/*/shared/**/*",
     "../layers/*/shared/**/*",
-    "../node_modules/runtime",
-    "../node_modules/dist/runtime"
+    "../*.d.ts",
+    "../layers/*/*.d.ts"
   ],
-  "exclude": [
-    "../node_modules",
-    "../node_modules/nuxt/node_modules",
-    "../node_modules/@nuxt/content/node_modules",
-    "../node_modules/@nuxt/eslint/node_modules",
-    "../node_modules/@pinia/nuxt/node_modules",
-    "../node_modules/@nuxt/devtools/node_modules",
-    "../node_modules/@nuxt/telemetry/node_modules",
-    "../dist",
-    "../.data",
-    "../modules/*/runtime/server/**/*",
-    "../layers/*/server/**/*",
-    "../layers/*/modules/*/runtime/server/**/*",
-    "../node_modules/runtime/server",
-    "../node_modules/dist/runtime/server"
-  ]
+  "exclude": []
 }
