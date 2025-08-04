@@ -1,9 +1,9 @@
 {
-  "_hash": "L0AqNmzFPkUAuIrHOjtowLL6iG21nPcltssFffio4-E",
+  "_hash": "qbXNRC3zoDYHk_FX3jcf1knA5OaV1Tyow96C2Q4FMnw",
   "project": {
-    "rootDir": "/home/abdou/side_projects/vue/vbms-frontend-nuxt"
+    "rootDir": "/home/abdou/side_projects/vue/VBMS-frontend"
   },
   "versions": {
-    "nuxt": "3.17.3"
+    "nuxt": "4.0.2"
   }
 }
